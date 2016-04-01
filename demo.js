@@ -11,6 +11,20 @@ lcd.on('ready', function() {
     
     setTimeout(delKeys, 15000);
     
+    lcd.noop(function(err, response) {
+        if (err) console.log('No-op failed', err);
+        else console.log('No-op succeeded');
+    });
+    
+    lcd.info();
+    
+    lcd.output("on");
+    setTimeout(function() {lcd.output("off");}, 2000);
+    setTimeout(function() {lcd.output(8);}, 4000);
+    setTimeout(function() {lcd.backlight("on");}, 6000);
+    setTimeout(function() {lcd.backlight("off");}, 7000);
+
+    lcd.addScreen('Test1', {name: "{Test Screen}", priority: "alert"});
 });
 
 function addKeys() {
@@ -18,7 +32,7 @@ function addKeys() {
         if (err) console.log('Failed to register A key:', err);
         else console.log('Bound A key successfully');
     });
-    lcd.addKey('Enter', LCDdClient.KEY_EXCLUSIVE, function(err, response) {
+    lcd.addKey('Enter', LCDdClient.KEY_SHARED, function(err, response) {
         if (err) console.log('Failed to register Enter key:', err);
         else console.log('Bound Enter key successfully');
     });
@@ -43,5 +57,13 @@ function delKeys() {
         else console.log('Unbound C, D & E keys successfully');
     });
 }
+
+lcd.on('listen', function(screenID) {
+    console.log("Screen", screenID, "is now visible");
+});
+
+lcd.on('ignore', function(screenID) {
+    console.log("Screen", screenID, "is now hidden");
+});
 
 lcd.init();
