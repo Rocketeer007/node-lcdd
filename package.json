@@ -1,0 +1,11 @@
+{
+  "name": "node-lcdd",
+  "version": "0.0.0",
+  "description": "An LCDd client library for Node.JS",
+  "main": "index.js",
+  "repository": "",
+  "author": "Nick Price <n.m.price@gmail.com>",
+  "dependencies": {
+    "debug": "2.2.0"
+  }
+}
