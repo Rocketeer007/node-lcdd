@@ -24,7 +24,10 @@ lcd.on('ready', function() {
     setTimeout(function() {lcd.backlight("on");}, 6000);
     setTimeout(function() {lcd.backlight("off");}, 7000);
 
-    lcd.addScreen('Test1', {name: "{Test Screen}", priority: "alert"});
+    lcd.addScreen('Test1', {name: "{Test Screen}", priority: "alert"}, function(err, response) {
+        if (err) console.log('Failed to add screen Test1');
+        else lcd.addWidget('Test1', 'Widget1', 'string', [1, 1, '{Test Text}']);
+    });
 });
 
 function addKeys() {
