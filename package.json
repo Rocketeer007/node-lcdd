@@ -1,11 +1,19 @@
 {
   "name": "node-lcdd",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "An LCDd client library for Node.JS",
   "main": "index.js",
-  "repository": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rocketeer007/node-lcdd.git"
+  },
   "author": "Nick Price <n.m.price@gmail.com>",
+  "bugs": {
+    "url": "https://github.com/Rocketeer007/node-lcdd/issues"
+  },
+  "homepage": "https://github.com/Rocketeer007/node-lcdd#readme",
   "dependencies": {
-    "debug": "2.2.0"
+    "debug": "2.2.0",
+    "object.values" : "1.0.3"
   }
 }
