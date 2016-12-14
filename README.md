@@ -1,22 +1,52 @@
+# node-LCDd
 
-     ,-----.,--.                  ,--. ,---.   ,--.,------.  ,------.
-    '  .--./|  | ,---. ,--.,--. ,-|  || o   \  |  ||  .-.  \ |  .---'
-    |  |    |  || .-. ||  ||  |' .-. |`..'  |  |  ||  |  \  :|  `--, 
-    '  '--'\|  |' '-' ''  ''  '\ `-' | .'  /   |  ||  '--'  /|  `---.
-     `-----'`--' `---'  `----'  `---'  `--'    `--'`-------' `------'
-    ----------------------------------------------------------------- 
+A node.js client for LCDd, the [LCDproc](http://www.lcdproc.org) server
 
+## Example
+```
+var LCDdClient = require('./');
+var lcd = new LCDdClient('localhost', 13666);
+lcd.on('init', function() {
+    console.log('LCDClient Initialisation started');
+});
 
-Welcome to your Node.js project on Cloud9 IDE!
+lcd.on('ready', function() {
+    console.log('LCDClient is ready: Display is', lcd.width, 'x', lcd.height);
+    
+    lcd.info();
+    
+    lcd.addScreen('Test1', {name: "{Test Screen}", priority: "alert"}, function(err, response) {
+        if (err) console.log('Failed to add screen Test1');
+        else {
+            lcd.addTitleWidget('Test1', 'Title1', '{Demo Screen 1}');
+            lcd.addStringWidget('Test1', 'Widget1', 1, 2, '{Test Text}');
+            lcd.addScrollerWidget('Test1', 'Widget2', 2, 3, 20, 4, LCDdClient.DIRECTION.HORIZONTAL, 4, 'This is text that is too long to display normally...');
+            lcd.addIconWidget('Test1', 'Widget3', 1, 4, LCDdClient.ICON_NAME.PLAYR);
+        }
+    });
+});
+```
 
-This chat example showcases how to use `socket.io` with a static `express` server.
+## Requirements
 
-## Running the server
+- [LCDproc](http://www.lcdproc.org) - Tested with v0.5.7 from the [SourceForge project](https://sourceforge.net/projects/lcdproc/), which appears to be newer than the current version available from [lcdproc.org](http://www.lcdproc.org)
+- [Node.js](https://nodejs.org/) - Tested with v5.9.0
 
-1) Open `server.js` and start the app by clicking on the "Run" button in the top menu.
+## Getting Started
 
-2) Alternatively you can launch the app from the Terminal:
+Start by getting LCDd working on your machine.  You don't need an LCD display for testing - LCDd includes a [curses client](http://lcdproc.sourceforge.net/docs/lcdproc-0-5-5-user.html#curses-howto) which allows you to emulate an LCD display inside a normal terminal session.
 
-    $ node server.js
+A good guide to this (the one I used) is available from [rototron.info](http://www.rototron.info/lcdproc-tutorial-for-raspberry-pi/)
 
-Once the server is running, open the project in the shape of 'https://projectname-username.c9users.io/'. As you enter your name, watch the Users list (on the left) update. Once you press Enter or Send, the message is shared with all connected clients.
+The following command can be used to start a simple curses LCD, using the default configuration file supplied with LCDproc:
+```
+cd lcdproc-0.5.7
+server/LCDd -f -d curses -c LCDd.conf
+```
+
+You'll also need to have `node.js` working - I'll direct you to Google for that particular topic!
+
+Once you have that working, just start up the demo script to see what the library can do:
+```
+$ node demo.js
+```
