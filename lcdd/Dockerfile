@@ -1,13 +1,11 @@
-FROM ubuntu:precise
+FROM alpine:3.4
 
 # Add required packages
-RUN apt-get update && apt-get install -y --no-install-recommends \
-	build-essential \
-	ca-certificates \
+RUN apk add --no-cache \
 	curl \
-	libncurses-dev \
-	openssl \
- && rm -rf /var/lib/apt/lists/*
+	g++ \
+	make \
+	ncurses-dev
 
 # Download & extract lcdproc 0.5.7
 RUN mkdir -p /usr/src/lcdproc \
