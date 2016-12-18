@@ -1,0 +1,18 @@
+FROM alpine:3.4
+
+# Use a shell script to download and compile lcdproc in one Docker layer
+COPY install_lcdd.sh /tmp/
+RUN /tmp/install_lcdd.sh
+
+# Add configuration file for curses virtual LCD
+COPY LCDd.conf /usr/local/etc/
+
+# Add tmux for debug display
+RUN apk add --no-cache tmux
+
+# Add tmux launch script
+COPY LCDd-debug /usr/local/bin
+
+EXPOSE 13666
+ENTRYPOINT ["LCDd-debug"]
+CMD ["LCDd"]

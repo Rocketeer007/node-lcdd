@@ -1,0 +1,12 @@
+#!/bin/sh
+
+if [ "$1" = 'LCDd' ]; then
+        tmux -2 new-session -d -s LCDd-debug -n MainWindow
+        tmux send-keys "tty > /tmp/debug_out.txt" C-m
+        tmux split-window -bvl6
+        tmux send-keys "LCDd -s0 -f 2>`cat /tmp/debug_out.txt`" C-m
+
+        exec tmux -2 attach
+fi
+
+exec "$@"
