@@ -38,10 +38,10 @@ Start by getting LCDd working on your machine.  You don't need an LCD display fo
 
 A good guide to this (the one I used) is available from [rototron.info](http://www.rototron.info/lcdproc-tutorial-for-raspberry-pi/)
 
-The following command can be used to start a simple curses LCD, using the default configuration file supplied with LCDproc:
+Alternatively, this repo includes a Dockerfile that can be used to run a virtual LCD in a Docker container.  This Docker image can be fetched directly from Docker Hub, or built from the Dockerfile.
+
 ```
-cd lcdproc-0.5.7
-server/LCDd -f -d curses -c LCDd.conf
+docker run -p 13666:13666 -it rocketeer007/lcdd-server
 ```
 
 You'll also need to have `node.js` working - I'll direct you to Google for that particular topic!
