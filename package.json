@@ -1,6 +1,7 @@
 {
   "name": "node-lcdd",
   "version": "0.0.1",
+  "license" : "MIT",
   "description": "An LCDd client library for Node.JS",
   "main": "index.js",
   "repository": {
